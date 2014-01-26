@@ -1,4 +1,4 @@
-define([], function () {
+define(['game/locations/index'], function (locations) {
   'use strict';
 
   return {
@@ -20,20 +20,35 @@ define([], function () {
         { name: 'demon',       hitPoints: 52, money: 105, experience:  75 },
         { name: 'dactyl',      hitPoints: 67, money: 130, experience: 100 },
         { name: 'dragon',      hitPoints: 87, money: 170, experience: 125 },
-        { name: 'T_Rex',       hitPoints: 75, money: 150, experience: 115 },
+        { name: 'T-Rex',       hitPoints: 75, money: 150, experience: 115 },
         { name: 'ogre',        hitPoints: 71, money: 142, experience: 105 },
         { name: 'troll',       hitPoints: 60, money: 125, experience:  85 },
         { name: 'sidewinder',  hitPoints: 99, money: 200, experience: 150 },
         { name: 'cave monkey', hitPoints: 59, money: 120, experience:  90 },
         { name: 'paramanthis', hitPoints: 30, money: 250, experience:  10 }
-      ]
+      ],
+      morlin: {
+        name: 'Morlin',
+        hitPoints: 110,
+        money: 10,
+        experience: 200,
+        boss: true
+      },
+      kamul: {
+        name: 'Kamul',
+        hitPoints: 180,
+        money: 0,
+        experience: 0,
+        boss: true
+      }
     },
     weapon: [
       { name: 'Rapier',        price: 150,  strength:  3 },
       { name: 'Phantom Blade', price: 300,  strength:  7 },
       { name: 'Katana',        price: 550,  strength: 10 },
       { name: 'eXaliber',      price: 800,  strength: 15 },
-      { name: 'Masemune',      price: 1150, strength: 21 }
+      { name: 'Masemune',      price: 1150, strength: 21 },
+      { name: 'Dragon\'s Bane',price: 0,    strength: 33 }
     ],
     armor: [
       { name: 'Aura Coat',     price: 200,  strength:  2 },
@@ -48,6 +63,7 @@ define([], function () {
       { name: 'Save your game',  price:  5 },
       { name: 'Spend the night', price: 35 }
     ],
-    levels: [90, 210, 400, 630, 900, 1200, 1550, 1950, 2400, 2900, 3450, 4050, 4700, 5400, 6200]
+    levels: [90, 210, 400, 630, 900, 1200, 1550, 1950, 2400, 2900, 3450, 4050, 4700, 5400, 6200],
+    locations: locations
   };
 });
