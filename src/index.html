@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Yearlings</title>
+    <link rel="Stylesheet" href="css/core.css">
+  </head>
+  <body ng-controller="YearlingsController">
+    <div class="container">
+      <h1>Yearlings</h1>
+      <div class="yearlings">
+        <div class="location ng-cloak">
+          <h2>{{currentLocation.title}}</h2>
+          <p class="main">{{currentLocation.desc}}</p>
+          <ul>
+            <li ng-repeat="action in currentLocation.actions"><a ng-click="takeAction($index)">{{action.label}}</a></li>
+          </ul>
+        </div>
+        <div class="stats" ng-show="showStats()">
+          <dl>
+            <dt>Money</dt>
+            <dd>{{playerState.money}}</dd>
+            <dt>Health</dt>
+            <dd>{{playerState.hitPoints}} / {{playerState.maxHitPoints}}</dd>
+            <dt>Total Attack</dt>
+            <dd>{{playerState.attack + playerState.weapon.strength}}</dd>
+            <dt>Total Defence</dt>
+            <dd>{{playerState.defence + playerState.armor.strength}}</dd>
+            <dt>Exerience Points</dt>
+            <dd>{{playerState.experience}}</dd>
+            <dt>Level</dt>
+            <dd>{{playerState.level}}</dd>
+            <dt>Cure Potions</dt>
+            <dd>{{playerState.items.cure}}</dd>
+            <dt>Bombs</dt>
+            <dd>{{playerState.items.bombs}}</dd>
+            <dt>Weapon</dt>
+            <dd>{{playerState.weapon.name}}</dd>
+            <dt>Armour</dt>
+            <dd>{{playerState.armor.name}}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <script src="bower_components/requirejs/require.js" data-main="js/main"></script>
+  </body>
+</html>

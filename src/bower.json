@@ -1,0 +1,28 @@
+{
+  "name": "yearlings",
+  "version": "0.0.1",
+  "authors": [
+    "Colin Bate <colin@colinbate.com>"
+  ],
+  "description": "Text RPG",
+  "main": "src/index.html",
+  "keywords": [
+    "rpg",
+    "text",
+    "game"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.10",
+    "requirejs": "~2.1.10",
+    "normalize-css": "~2.1.3"
+  }
+}
