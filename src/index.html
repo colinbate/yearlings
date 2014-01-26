@@ -8,36 +8,43 @@
     <div class="container">
       <h1>Yearlings</h1>
       <div class="yearlings">
-        <div class="location ng-cloak">
-          <h2>{{currentLocation.title}}</h2>
-          <p class="main">{{currentLocation.desc}}</p>
-          <ul>
-            <li ng-repeat="action in currentLocation.actions"><a ng-click="takeAction($index)">{{action.label}}</a></li>
-          </ul>
-        </div>
-        <div class="stats" ng-show="showStats()">
+        <div class="stats ng-cloak" ng-show="showStats()">
           <dl>
             <dt>Money</dt>
-            <dd>{{playerState.money}}</dd>
+            <dd>{{player.money}}</dd>
             <dt>Health</dt>
-            <dd>{{playerState.hitPoints}} / {{playerState.maxHitPoints}}</dd>
+            <dd>{{player.hitPoints}} / {{player.maxHitPoints}}</dd>
             <dt>Total Attack</dt>
-            <dd>{{playerState.attack + playerState.weapon.strength}}</dd>
+            <dd>{{player.attack + player.weapon.strength}}</dd>
             <dt>Total Defence</dt>
-            <dd>{{playerState.defence + playerState.armor.strength}}</dd>
+            <dd>{{player.defence + player.armor.strength}}</dd>
             <dt>Exerience Points</dt>
-            <dd>{{playerState.experience}}</dd>
+            <dd>{{player.experience}}</dd>
             <dt>Level</dt>
-            <dd>{{playerState.level}}</dd>
+            <dd>{{player.level}}</dd>
             <dt>Cure Potions</dt>
-            <dd>{{playerState.items.cure}}</dd>
+            <dd>{{player.items.cure}}</dd>
             <dt>Bombs</dt>
-            <dd>{{playerState.items.bombs}}</dd>
+            <dd>{{player.items.bombs}}</dd>
             <dt>Weapon</dt>
-            <dd>{{playerState.weapon.name}}</dd>
+            <dd>{{player.weapon.name || '(none)'}}</dd>
             <dt>Armour</dt>
-            <dd>{{playerState.armor.name}}</dd>
+            <dd>{{player.armor.name || '(none)'}}</dd>
           </dl>
+        </div>
+        <div class="location ng-cloak">
+          <h2>{{getCurrentLocationTitle()}}</h2>
+          <p class="main">{{getCurrentLocationDesc()}}</p>
+          <ul>
+            <li ng-repeat="action in currentLocation.actions"><button ng-click="takeAction(action)">{{getActionLabel(action)}}</button></li>
+          </ul>
+        </div>
+        <div class="battle ng-cloak" ng-show="inBattle()">
+          <h2>Fighting {{currentBattle.name}}</h2>
+          <p class="main">{{currentBattle.desc}}</p>
+          <ul>
+            <li ng-repeat="action in currentBattle.actions"><button ng-click="battleAction(action)">{{getActionLabel(action)}}</button></li>
+          </ul>
         </div>
       </div>
     </div>

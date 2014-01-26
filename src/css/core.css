@@ -382,11 +382,49 @@ body {
   font-size: 18px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\000036}}
-.container {
-  width: 40em;
-  margin: 0 auto;
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000311}}
+.container {
+  width: 43em;
+  margin: 0 auto;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000316}}
 .ng-cloak {
   display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000320}}
+.location {
+  margin-right: 16em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000323}}
+.location ul {
+  padding: 0;
+  margin: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000328}}
+.location li {
+  list-style: none;
+  margin: 0.25em 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000334}}
+.stats {
+  float: right;
+  width: 14em;
+  border: 1px solid #444;
+  border-radius: 0.5em;
+  background-color: #ddd;
+  padding: 0 1em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000342}}
+.stats dt {
+  float: left;
+  font-weight: bold;
+  margin-right: 1em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000347}}
+.stats dd {
+  text-align: right;
 }
