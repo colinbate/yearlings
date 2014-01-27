@@ -1,5 +1,12 @@
 define([], function () {
   'use strict';
+  var walkObj = function (path, obj) {
+    var parts = path.split('.');
+    while (parts.length) {
+      obj = obj[parts.shift()];
+    }
+    return obj;
+  };
 
   return {
     randomInt: function (max, min) {
@@ -18,6 +25,26 @@ define([], function () {
         label: label,
         act : function (scope) {
           scope.finishInspecting();
+        }
+      }
+    },
+    move: function (where, label) {
+      return {
+        label: label || function (s, data) {
+          return walkObj(where, data).title;
+        },
+        act: function (scope, data) {
+          scope.navigateTo(walkObj(where, data));
+        }
+      }
+    },
+    visit: function (where, label) {
+      return {
+        label: label || function (s, data) {
+          return walkObj(where, data).title;
+        },
+        act: function (scope, data) {
+          scope.inspect(walkObj(where, data));
         }
       }
     }
