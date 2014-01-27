@@ -44,6 +44,10 @@ define(['game/data', 'game/battle'], function (data, battle) {
       callOrReturn(action.act, action);
     };
 
+    $scope.battleAction = function (action) {
+      callOrReturn(action.act, $scope.currentBattle);
+    };
+
     // STATE MANIPULATION FUNCTIONS -------------------------
 
     $scope.startGame = function () {
@@ -89,14 +93,23 @@ define(['game/data', 'game/battle'], function (data, battle) {
 
     $scope.explore = function () {
       var explored = callOrReturn($scope.currentLocation.onExplore, $scope.currentLocation),
-          enemy, encounter;
+          enemy, encounter, result;
       if (explored) {
         $scope.inspect(explored);
       } else {
         enemy = callOrReturn($scope.currentLocation.onEncounterEnemy, $scope.currentLocation);
         if (enemy) {
           encounter = battle.encounter(enemy, $scope, $q);
-          encounter.then($scope.currentLocation.onFightEnemy, $scope.currentLocation.onAvoidEnemy)
+          encounter.then($scope.currentLocation.onFightEnemy, $scope.currentLocation.onAvoidEnemy);
+          result = encounter.then(function () {
+            return battle.startFight(enemy, $scope, $q);
+          });
+          result.then($scope.currentLocation.onFinishFighting);
+          result.then(function () {
+            $scope.player.experience += enemy.experience;
+            $scope.player.money += enemy.money;
+            $scope.currentBattle = {};
+          });
         }
       }
     };
