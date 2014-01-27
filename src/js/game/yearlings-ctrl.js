@@ -108,7 +108,6 @@ define(['game/data', 'game/battle'], function (data, battle) {
           result.then(function () {
             $scope.player.experience += enemy.experience;
             $scope.player.money += enemy.money;
-            $scope.currentBattle = {};
           });
         }
       }

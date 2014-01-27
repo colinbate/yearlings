@@ -92,6 +92,13 @@ define(['game/util'], function (util) {
 
             }
           },
+          finish = {
+            label: 'Continue...',
+            act: function (scope) {
+              deferred.resolve();
+              scope.currentBattle = {};
+            }
+          },
           setupActions = function () {
             $scope.currentBattle.actions = [attack];
             if ($scope.player.items.bombs && !enemy.noBombs) {
@@ -101,12 +108,17 @@ define(['game/util'], function (util) {
               $scope.currentBattle.actions.push(cure);
             }
             $scope.currentBattle.actions.push(run);
+          },
+          waitContinue = function () {
+            $scope.currentBattle.actions = [];
+            $scope.currentBattle.actions.push(finish);
           };
       evalAttack = function (amount) {
         var enemyRemaining, youRemaining;
         enemyRemaining = inflictDamage($scope, amount);
         if (enemyRemaining === 0) {
-          deferred.resolve();
+          $scope.currentBattle.desc += ', and were victorious!';
+          waitContinue();
         } else {
           youRemaining = receiveDamage($scope, enemy.hitPoints);
           if (youRemaining === 0) {
