@@ -39,7 +39,8 @@ define(['game/locations/index'], function (locations) {
         hitPoints: 180,
         money: 0,
         experience: 0,
-        boss: true
+        boss: true,
+        noBomb: true
       }
     },
     weapon: [

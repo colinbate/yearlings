@@ -32,7 +32,7 @@
             <dd>{{player.armor.name || '(none)'}}</dd>
           </dl>
         </div>
-        <div class="location ng-cloak">
+        <div class="location ng-cloak" ng-hide="inBattle()">
           <h2>{{getCurrentLocationTitle()}}</h2>
           <p class="main">{{getCurrentLocationDesc()}}</p>
           <ul>
@@ -41,7 +41,7 @@
         </div>
         <div class="battle ng-cloak" ng-show="inBattle()">
           <h2>Fighting {{currentBattle.name}}</h2>
-          <p class="main">{{currentBattle.desc}}</p>
+          <p class="main">{{currentBattle.desc}} {{currentBattle.name}}'s health: {{currentBattle.hitPoints}} / {{currentBattle.maxHitPoints}}</p>
           <ul>
             <li ng-repeat="action in currentBattle.actions"><button ng-click="battleAction(action)">{{getActionLabel(action)}}</button></li>
           </ul>
