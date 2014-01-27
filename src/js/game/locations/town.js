@@ -6,51 +6,58 @@ define(['game/util'], function (util) {
     'If I were you, I\'d  get to level 13 before even going into the forest.',
     'The Item Shop teller has more than he sells.',
     'I can\'t find my magical pendant, I think I lost it some where in the field.'
-  ];
+  ],
+  confirmDowngrade = function (done, scope) {
+    return {
+      title: scope.currentLocation.title,
+      desc: 'That is cheaper than the one you have now, are you sure?',
+      actions: [
+        { label: 'Yes', act: function () { done(true); scope.finishInspecting(); } }
+        { label: 'No', act: function () { done(false); scope.finishInspecting(); } }
+      ]
+    };
+  },
+  buyThis = function (fn) {
+    return function (scope) {
+      if (this.item.price) {
+        
+      }
+      if (scope.debit(this.item.price)) {
+        fn(this.item);
+      }
+    };
+  },
+  addItemsForSale = function (dest, src, fn) {
+    var ii, buyFn =;
+    for (ii = src.length - 1; ii >= 0; ii -= 1) {
+      if (src[ii].price > 0) {
+        dest.unshift({
+          label: src[ii].name,
+          item: src[ii],
+          act: buyThis(fn)
+        });
+      }
+    }
+  };
 
   return {
     title: 'Town of Pylaim',
     desc: 'You take a look around the town. You see weapon and armour shops plus a general store. On the other side of town you see a monitor station and a fortune tellers tent.',
     onEncounterEnemy: false,
     actions: [
-      {
-        label: 'Weapon Shop',
-        act: function ($scope, data) {
-
-        }
-      },
-      {
-        label: 'Armour Shop',
-        act: function ($scope, data) {
-
-        }
-      },
-      {
-        label: 'General Store',
-        act: function ($scope, data) {
-
-        }
-      },
-      {
-        label: 'Monitor Station',
-        act: function ($scope, data) {
-          $scope.inspect(data.locations.monitor);
-        }
-      },
-      {
-        label: 'Fortune Teller',
-        act: function ($scope, data) {
-          $scope.inspect(data.locations.town.places.teller);
-        }
-      },
-      {
-        label: 'Leave town',
-        act: function ($scope, data) {
-          $scope.navigateTo(data.locations.grassland);
-        }
-      },
+      util.visit('locations.town.shops.weapon'),
+      util.visit('locations.town.shops.armor'),
+      util.visit('locations.town.shops.general'),
+      util.visit('locations.town.places.monitor'),
+      util.visit('locations.town.places.teller'),
+      util.move('locations.grassland', 'Leave town')
     ],
     places: {
+      monitor: {
+        title: 'Monitor Station',
+        desc: 'This used to be where you would go to get your stats, however you can see those on the right hand side now.',
+        actions: [util.leave('Leave the station')]
+      },
       teller: {
         title: 'Fortune Teller',
         desc: function ($scope) {
@@ -69,6 +76,30 @@ define(['game/util'], function (util) {
           return '"' + msg + '"';
         },
         actions: [util.leave('Leave the tent')]
+      }
+    },
+    shops: {
+      weapon: {
+        title: 'Weapon Shop',
+        desc: function ($scope, data) {
+          var msg;
+          if (this.actions.length === 1) {
+            addItemsForSale(this.actions, data.weapon, function (item) {
+              $scope.player.weapon
+            });
+          }
+          msg = 'You stroll into the weapon shop to see what is for sale. Choose from the items below.'
+          return msg;
+        }
+        actions: [util.leave('Leave the shop')]
+      },
+      armor: {
+        title: 'Armour Shop',
+        actions: [util.leave('Leave the shop')]
+      },
+      general: {
+        title: 'General Store',
+        actions: [util.leave('Leave the shop')]
       }
     }
   };
