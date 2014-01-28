@@ -36,6 +36,43 @@ define(['game/util'], function (util) {
     onAvoidEnemy: function () {
       fightStreak = 0;
     },
+    onFinishFighting: function ($scope) {
+      if (fightStreak >= 3 && !$scope.player.items.pendant && !$scope.player.state.returnedPendant) {
+        // Found pendant.
+        $scope.inspect({
+          title: $scope.currentLocation.title,
+          desc: 'You found a pendant in the grass!',
+          actions: [
+            {
+              label: 'Pick it up',
+              act: function (scope) {
+                scope.player.items.pendant = true;
+                fightStreak = 0;
+                scope.finishInspecting();
+              }
+            },
+            { label: 'Leave it', act: function (scope) { fightStreak = 0; scope.finishInspecting(); } }
+          ]
+        });
+      } else if (fightStreak >= 3 && $scope.player.state.returnedPendant && !$scope.player.items.rope) {
+        // Found rope.
+        $scope.inspect({
+          title: 'Found a rope!',
+          desc: 'You found a rope tangled in a tree!',
+          actions: [
+            {
+              label: 'Take it',
+              act: function (scope) {
+                scope.player.items.rope = 1;
+                fightStreak = 0;
+                scope.finishInspecting();
+              }
+            },
+            { label: 'Leave it', act: function (scope) { fightStreak = 0; scope.finishInspecting(); } }
+          ]
+        });
+      }
+    },
     actions: [
       {
         label: 'Explore field',
