@@ -27,7 +27,7 @@ define(['game/util'], function (util) {
     bite -= (block / 2);
     bite = Math.max(Math.floor(bite), 0);
     $scope.player.hitPoints -= bite;
-    $scope.player.hitPoints = Math.max($scope.player.hitPoints, 0);
+    $scope.player.hitPoints = Math.max($scope.player.hitPoints, 1);
     $scope.currentBattle.desc += ', and you were hit with ' + bite;
     return $scope.player.hitPoints;
   };
@@ -118,6 +118,9 @@ define(['game/util'], function (util) {
         enemyRemaining = inflictDamage($scope, amount);
         if (enemyRemaining === 0) {
           $scope.currentBattle.desc += ', and were victorious!';
+          $scope.player.experience += enemy.experience;
+          $scope.player.money += enemy.money;
+          $scope.levelUp();
           waitContinue();
         } else {
           youRemaining = receiveDamage($scope, enemy.hitPoints);

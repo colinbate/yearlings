@@ -7,6 +7,11 @@ define(['game/data', 'game/battle'], function (data, battle) {
         return prop.call(self, $scope, data);
       }
       return prop;
+    },
+    bindScopeData = function (fn, self) {
+      return function () {
+        return fn.call(self, $scope, data);
+      };
     };
 
     $scope.currentLocation = {};
@@ -87,39 +92,37 @@ define(['game/data', 'game/battle'], function (data, battle) {
 
     $scope.finishInspecting = function () {
       if ($scope.previousLocation.length > 0) {
+        callOrReturn($scope.currentLocation.onUninspect, $scope.currentLocation);
         $scope.currentLocation = $scope.previousLocation.pop();
       }
     };
 
     $scope.explore = function () {
       var explored = callOrReturn($scope.currentLocation.onExplore, $scope.currentLocation),
-          enemy, encounter, result;
+          enemy, encounter, result, locale;
       if (explored) {
         $scope.inspect(explored);
       } else {
         enemy = callOrReturn($scope.currentLocation.onEncounterEnemy, $scope.currentLocation);
         if (enemy) {
+          locale = $scope.currentLocation;
           encounter = battle.encounter(enemy, $scope, $q);
-          encounter.then($scope.currentLocation.onFightEnemy, $scope.currentLocation.onAvoidEnemy);
+          encounter.then(locale.onFightEnemy, locale.onAvoidEnemy);
           result = encounter.then(function () {
             return battle.startFight(enemy, $scope, $q);
           });
-          result.then($scope.currentLocation.onFinishFighting);
-          result.then(function () {
-            $scope.player.experience += enemy.experience;
-            $scope.player.money += enemy.money;
-            $scope.levelUp();
-          });
+          result.then(bindScopeData(locale.onFinishFighting, locale));
         }
       }
     };
 
     $scope.levelUp = function () {
-      if ($scope.player.experience > data.levels[$scope.player.level - 1]) {
+      if ($scope.player.level < 15 && $scope.player.experience > data.levels[$scope.player.level - 1]) {
         $scope.player.level += 1;
         $scope.player.attack += 2;
         $scope.player.defence += 2;
         $scope.player.maxHitPoints += 8;
+        $scope.currentBattle.desc += ' You just gained a level!';
       }
     };
 
