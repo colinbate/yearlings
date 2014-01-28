@@ -7,34 +7,34 @@ define(['game/util'], function (util) {
     'The Item Shop teller has more than he sells.',
     'I can\'t find my magical pendant, I think I lost it some where in the field.'
   ],
-  confirmDowngrade = function (done, scope) {
+  confirmDowngrade = function (done, scope, desc) {
     return {
       title: scope.currentLocation.title,
-      desc: 'That is cheaper than the one you have now, are you sure?',
+      desc: desc || 'That is cheaper than the one you have now, are you sure?',
       actions: [
-        { label: 'Yes', act: function () { done(true); scope.finishInspecting(); } }
+        { label: 'Yes', act: function () { done(true); scope.finishInspecting(); } },
         { label: 'No', act: function () { done(false); scope.finishInspecting(); } }
       ]
     };
   },
-  buyThis = function (fn) {
+  buyThis = function (presaleFn, saleFn) {
     return function (scope) {
-      if (this.item.price) {
-        
-      }
-      if (scope.debit(this.item.price)) {
-        fn(this.item);
-      }
+      var self = this;
+      presaleFn(self.item, function (yes) {
+        if (yes && scope.debit(self.item.price)) {
+          saleFn(self.item);
+        }
+      });
     };
   },
-  addItemsForSale = function (dest, src, fn) {
-    var ii, buyFn =;
+  addItemsForSale = function (dest, src, presaleFn, saleFn) {
+    var ii;
     for (ii = src.length - 1; ii >= 0; ii -= 1) {
       if (src[ii].price > 0) {
         dest.unshift({
-          label: src[ii].name,
+          label: src[ii].name + ' (' + src[ii].price + ')',
           item: src[ii],
-          act: buyThis(fn)
+          act: buyThis(presaleFn, saleFn)
         });
       }
     }
@@ -84,21 +84,59 @@ define(['game/util'], function (util) {
         desc: function ($scope, data) {
           var msg;
           if (this.actions.length === 1) {
-            addItemsForSale(this.actions, data.weapon, function (item) {
-              $scope.player.weapon
+            addItemsForSale(this.actions, data.weapon, function (item, confirm) {
+              if ($scope.player.weapon && $scope.player.weapon.strength > item.strength) {
+                confirmDowngrade(confirm, $scope);
+              } else {
+                confirm(true);
+              }
+            }, function (item) {
+              $scope.player.weapon = item;
             });
           }
           msg = 'You stroll into the weapon shop to see what is for sale. Choose from the items below.'
           return msg;
-        }
+        },
         actions: [util.leave('Leave the shop')]
       },
       armor: {
         title: 'Armour Shop',
+        desc: function ($scope, data) {
+          var msg;
+          if (this.actions.length === 1) {
+            addItemsForSale(this.actions, data.armor, function (item, confirm) {
+              if ($scope.player.armor && $scope.player.armor.strength > item.strength) {
+                confirmDowngrade(confirm, $scope);
+              } else {
+                confirm(true);
+              }
+            }, function (item) {
+              $scope.player.armor = item;
+            });
+          }
+          msg = 'You stroll into the armour shop to see what is for sale. Choose from the items below.';
+          return msg;
+        },
         actions: [util.leave('Leave the shop')]
       },
       general: {
         title: 'General Store',
+        desc: function ($scope, data) {
+          var msg;
+          if (this.actions.length === 1) {
+            addItemsForSale(this.actions, data.items, function (item, confirm) {
+              confirm(true);
+            }, function (item) {
+              if (item.item) {
+                $scope.player.items[item.item] += 1; //($scope.player.items[item.item] || 0) + 1;
+              } else if (item.id === 'restore') {
+                $scope.player.hitPoints = $scope.player.maxHitPoints;
+              }
+            });
+          }
+          msg = 'The owner smiles as you walk in. "Can I help you?"';
+          return msg;
+        },
         actions: [util.leave('Leave the shop')]
       }
     }

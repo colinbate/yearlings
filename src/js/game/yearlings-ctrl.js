@@ -108,13 +108,23 @@ define(['game/data', 'game/battle'], function (data, battle) {
           result.then(function () {
             $scope.player.experience += enemy.experience;
             $scope.player.money += enemy.money;
+            $scope.levelUp();
           });
         }
       }
     };
 
+    $scope.levelUp = function () {
+      if ($scope.player.experience > data.levels[$scope.player.level - 1]) {
+        $scope.player.level += 1;
+        $scope.player.attack += 2;
+        $scope.player.defence += 2;
+        $scope.player.maxHitPoints += 8;
+      }
+    };
+
     $scope.debit = function (amount) {
-      if ($scope.player.money > amount) {
+      if ($scope.player.money >= amount) {
         $scope.player.money -= amount;
         return true;
       }
