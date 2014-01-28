@@ -59,10 +59,10 @@ define(['game/locations/index'], function (locations) {
       { name: 'Diamond Suit',  price: 800,  strength: 18 }
     ],
     items: [
-      { name: 'Cure potion',     price: 10 },
-      { name: 'Bomb',            price: 15 },
-      { name: 'Save your game',  price:  5 },
-      { name: 'Spend the night', price: 35 }
+      { name: 'Cure potion',     price: 10, item: 'cure' },
+      { name: 'Bomb',            price: 15, item: 'bombs' },
+      { name: 'Save your game',  price:  5, id: 'save' },
+      { name: 'Spend the night', price: 35, id: 'restore' }
     ],
     levels: [90, 210, 400, 630, 900, 1200, 1550, 1950, 2400, 2900, 3450, 4050, 4700, 5400, 6200],
     locations: locations
