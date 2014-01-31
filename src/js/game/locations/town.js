@@ -75,8 +75,10 @@ define(['game/util'], function (util) {
         },
         actions: [util.leave('Leave the tent')],
         onUninspect: function ($scope) {
-          delete $scope.player.items['pendant'];
-          $scope.player.state.returnedPendant = true;
+          if ($scope.player.items.pendant) {
+            delete $scope.player.items['pendant'];
+            $scope.player.state.returnedPendant = true;
+          }
         }
       }
     },
@@ -137,9 +139,17 @@ define(['game/util'], function (util) {
             });
           }
           msg = 'The owner smiles as you walk in. "Can I help you?"';
+          if ($scope.player.items.rope === 1) {
+            msg = 'As you walk into the item shop the man behind the counter sees your rope and asks what it\'s for. After telling him he laughs and says "Why that old rope wouldn\'t \'old nobody. You\'se lucky dat I got me a new rope here, \'ave it!" You take the rope from the man.';
+          }
           return msg;
         },
-        actions: [util.leave('Leave the shop')]
+        actions: [util.leave('Leave the shop')],
+        onUninspect: function ($scope) {
+          if ($scope.player.items.rope === 1) {
+            $scope.player.items.rope = 2;
+          }
+        }
       }
     }
   };

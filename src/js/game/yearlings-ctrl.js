@@ -4,13 +4,13 @@ define(['game/data', 'game/battle'], function (data, battle) {
   var yearlingsController = function ($scope, $q) {
     var callOrReturn = function (prop, self) {
       if (typeof prop === 'function') {
-        return prop.call(self, $scope, data);
+        return prop.call(self, $scope, data, $q);
       }
       return prop;
     },
     bindScopeData = function (fn, self) {
       return function () {
-        return fn.call(self, $scope, data);
+        return fn.call(self, $scope, data, $q);
       };
     };
 
@@ -97,6 +97,21 @@ define(['game/data', 'game/battle'], function (data, battle) {
       }
     };
 
+    $scope.doBattle = function doBattle(enemy) {
+      var locale = $scope.currentLocation,
+          encounter = battle.encounter(enemy, $scope, $q),
+          result;
+      encounter.then(locale.onFightEnemy, locale.onAvoidEnemy);
+      result = encounter.then(function () {
+        return battle.startFight(enemy, $scope, $q);
+      });
+      result.then(bindScopeData(locale.onFinishFighting, locale)).then(function (steps) {
+        if (steps && steps.boss) {
+          doBattle(steps.boss);
+        }
+      });
+    };
+
     $scope.explore = function () {
       var explored = callOrReturn($scope.currentLocation.onExplore, $scope.currentLocation),
           enemy, encounter, result, locale;
@@ -105,13 +120,7 @@ define(['game/data', 'game/battle'], function (data, battle) {
       } else {
         enemy = callOrReturn($scope.currentLocation.onEncounterEnemy, $scope.currentLocation);
         if (enemy) {
-          locale = $scope.currentLocation;
-          encounter = battle.encounter(enemy, $scope, $q);
-          encounter.then(locale.onFightEnemy, locale.onAvoidEnemy);
-          result = encounter.then(function () {
-            return battle.startFight(enemy, $scope, $q);
-          });
-          result.then(bindScopeData(locale.onFinishFighting, locale));
+          $scope.doBattle(enemy);
         }
       }
     };

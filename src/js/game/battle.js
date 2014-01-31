@@ -35,7 +35,12 @@ define(['game/util'], function (util) {
   return {
     encounter: function (enemy, $scope, $q) {
       var deferred = $q.defer(),
-          prompt = wantToFight(enemy);
+          prompt;
+      if (enemy.boss) {
+        deferred.resolve(enemy);
+        return deferred.promise;
+      }
+      prompt = wantToFight(enemy);
       prompt.actions = [
         {
           label: 'Fight!',
@@ -118,6 +123,15 @@ define(['game/util'], function (util) {
         enemyRemaining = inflictDamage($scope, amount);
         if (enemyRemaining === 0) {
           $scope.currentBattle.desc += ', and were victorious!';
+          if (enemy.victory) {
+            $scope.currentBattle.desc += ' ' + enemy.victory;
+          }
+          if (enemy.item) {
+            if (enemy.item.weapon) {
+              $scope.player.items.weapon = $scope.player.weapon;
+              $scope.player.weapon = enemy.item.weapon;
+            }
+          }
           $scope.player.experience += enemy.experience;
           $scope.player.money += enemy.money;
           $scope.levelUp();

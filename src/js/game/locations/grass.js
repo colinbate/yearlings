@@ -57,7 +57,7 @@ define(['game/util'], function (util) {
       } else if (fightStreak >= 3 && $scope.player.state.returnedPendant && !$scope.player.items.rope) {
         // Found rope.
         $scope.inspect({
-          title: 'Found a rope!',
+          title: $scope.currentLocation.title,
           desc: 'You found a rope tangled in a tree!',
           actions: [
             {
@@ -72,6 +72,7 @@ define(['game/util'], function (util) {
           ]
         });
       }
+      return false;
     },
     actions: [
       {
@@ -80,18 +81,8 @@ define(['game/util'], function (util) {
           $scope.explore();
         }
       },
-      {
-        label: 'Enter town',
-        act: function ($scope, data) {
-          $scope.navigateTo(data.locations.town);
-        }
-      },
-      {
-        label: 'Explore rocky area',
-        act: function ($scope, data) {
-          $scope.navigateTo(data.locations.rockyland);
-        }
-      }
+      util.move('locations.town', 'Enter town'),
+      util.move('locations.rockyland', 'Go to rocky area')
     ]
   };
 });

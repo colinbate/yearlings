@@ -32,7 +32,11 @@ define(['game/locations/index'], function (locations) {
         hitPoints: 110,
         money: 10,
         experience: 200,
-        boss: true
+        boss: true,
+        item: {
+          weapon: { name: 'Dragon\'s Bane', price: 0, strength: 33, last: true }
+        },
+        victory: 'You grab the mighty Dragon\'s Bane in your hands and feel the raw power!'
       },
       kamul: {
         name: 'Kamul',
@@ -48,8 +52,7 @@ define(['game/locations/index'], function (locations) {
       { name: 'Phantom Blade', price: 300,  strength:  7 },
       { name: 'Katana',        price: 550,  strength: 10 },
       { name: 'eXaliber',      price: 800,  strength: 15 },
-      { name: 'Masemune',      price: 1150, strength: 21 },
-      { name: 'Dragon\'s Bane',price: 0,    strength: 33 }
+      { name: 'Masemune',      price: 1150, strength: 21 }
     ],
     armor: [
       { name: 'Aura Coat',     price: 200,  strength:  2 },
