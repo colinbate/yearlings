@@ -85,43 +85,55 @@ define(['game/util'], function (util) {
     shops: {
       weapon: {
         title: 'Weapon Shop',
-        desc: function ($scope, data) {
-          var msg;
+        baseDesc: 'You stroll into the weapon shop to see what is for sale. Choose from the items below.',
+        actions: [util.leave('Leave the shop')],
+        onInspect: function ($scope, data) {
+          var self = this;
+          self.desc = self.baseDesc;
           if (this.actions.length === 1) {
             addItemsForSale(this.actions, data.weapon, function (item, confirm) {
               if ($scope.player.weapon && $scope.player.weapon.strength > item.strength) {
-                confirmDowngrade(confirm, $scope);
+                $scope.inspect(confirmDowngrade(confirm, $scope));
               } else {
                 confirm(true);
               }
             }, function (item) {
+              var prefix = 'You bought a ' + item.name + ' ';
+              if ($scope.player.weapon.price) {
+                prefix += 'and you sold your ' + $scope.player.weapon.name + ' for ' + Math.floor($scope.player.weapon.price / 2) + '. ';
+                $scope.credit(Math.floor($scope.player.weapon.price / 2));
+              }
               $scope.player.weapon = item;
+              self.desc = prefix;
             });
           }
-          msg = 'You stroll into the weapon shop to see what is for sale. Choose from the items below.'
-          return msg;
-        },
-        actions: [util.leave('Leave the shop')]
+        }
       },
       armor: {
         title: 'Armour Shop',
-        desc: function ($scope, data) {
-          var msg;
+        baseDesc: 'You stroll into the armour shop to see what is for sale. Choose from the items below.',
+        actions: [util.leave('Leave the shop')],
+        onInspect: function ($scope, data) {
+          var self = this;
+          self.desc = self.baseDesc;
           if (this.actions.length === 1) {
             addItemsForSale(this.actions, data.armor, function (item, confirm) {
               if ($scope.player.armor && $scope.player.armor.strength > item.strength) {
-                confirmDowngrade(confirm, $scope);
+                $scope.inspect(confirmDowngrade(confirm, $scope));
               } else {
                 confirm(true);
               }
             }, function (item) {
+              var prefix = 'You bought a ' + item.name + ' ';
+              if ($scope.player.armor.price) {
+                prefix = 'and you sold your ' + $scope.player.armor.name + ' for ' + Math.floor($scope.player.armor.price / 2) + '. ';
+                $scope.credit(Math.floor($scope.player.armor.price / 2));
+              }
               $scope.player.armor = item;
+              self.desc = prefix + self.baseDesc;
             });
           }
-          msg = 'You stroll into the armour shop to see what is for sale. Choose from the items below.';
-          return msg;
-        },
-        actions: [util.leave('Leave the shop')]
+        }
       },
       general: {
         title: 'General Store',

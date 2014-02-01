@@ -3,7 +3,7 @@ define([], function () {
   var walkObj = function (path, obj) {
     var parts = path.split('.');
     while (parts.length) {
-      obj = obj[parts.shift()];
+      obj = typeof obj === 'undefined' ? undefined : obj[parts.shift()];
     }
     return obj;
   };
