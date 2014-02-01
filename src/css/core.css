@@ -396,16 +396,19 @@ body {
   display: none;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000320}}
-.location {
+.location,
+.battle {
   margin-right: 16em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000323}}
-.location ul {
+.location ul,
+.battle ul {
   padding: 0;
   margin: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000328}}
-.location li {
+.location li,
+.battle li {
   list-style: none;
   margin: 0.25em 0;
 }
