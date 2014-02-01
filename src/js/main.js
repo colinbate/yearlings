@@ -8,7 +8,8 @@
         },
         shim: {
             'angular'         : { exports: 'angular' }
-        }
+        },
+        waitSeconds: 15
     });
 
     require(['game/start'], function (game) {
