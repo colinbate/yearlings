@@ -10,20 +10,20 @@ define(['game/util'], function (util) {
         } else {
           return 'You are in the field. The town, forest, and rocky area border the field.';
         }
+      },
+      checkForWoods = function ($scope, actions) {
+        if ($scope.player.level >= 13 && actions.length === 3) {
+          actions.push(util.move('locations.forest', 'Doomed Woods'));
+        }
       };
 
   return {
     title: 'Grassland',
     desc: getDesc,
-    onArrive: function () {
+    onArrive: function ($scope) {
       fightStreak = 0;
       state = states.NEWLY_ARRIVED;
-    },
-    onLeave: function () {
-
-    },
-    onExplore: function ($scope, data) {
-
+      checkForWoods($scope, this.actions);
     },
     onEncounterEnemy: function ($scope, data) {
       var enemy = util.randomFromArray(data.enemy.grass);
@@ -37,6 +37,7 @@ define(['game/util'], function (util) {
       fightStreak = 0;
     },
     onFinishFighting: function ($scope) {
+      checkForWoods($scope, this.actions);
       if (fightStreak >= 3 && !$scope.player.items.pendant && !$scope.player.state.returnedPendant) {
         // Found pendant.
         $scope.inspect({

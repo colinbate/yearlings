@@ -93,8 +93,17 @@ define(['game/util'], function (util) {
           },
           run = {
             label: 'Run!',
-            act: function () {
-
+            act: function (scope) {
+              var roll = util.randomInt(10, 1);
+              if (roll >= 7 && !scope.currentBattle.noRunning) {
+                // Can run
+                scope.currentBattle.desc = 'You were able to run away!';
+                waitContinue();
+              } else {
+                // Can't run
+                scope.currentBattle.noRunning = true;
+                scope.currentBattle.desc = 'You were not able to run away';
+              }
             }
           },
           finish = {
