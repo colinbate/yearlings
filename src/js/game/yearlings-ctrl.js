@@ -7,11 +7,6 @@ define(['game/data', 'game/battle'], function (data, battle) {
         return prop.call(self, $scope, data, $q);
       }
       return prop;
-    },
-    bindScopeData = function (fn, self) {
-      return function () {
-        return fn.call(self, $scope, data, $q);
-      };
     };
 
     $scope.currentLocation = {};
@@ -97,15 +92,29 @@ define(['game/data', 'game/battle'], function (data, battle) {
       }
     };
 
+    $scope.dieFighting = function (enemy) {
+      $scope.inspect({
+        title: 'YOU DIE!',
+        desc: 'The ' + enemy.name + ' killed you in the battlefield. Your consolation is that your corpse will be used to feed future generations of insects and birds.',
+        actions: []
+      });
+      $scope.currentBattle = {};
+    };
+
     $scope.doBattle = function doBattle(enemy) {
       var locale = $scope.currentLocation,
           encounter = battle.encounter(enemy, $scope, $q),
           result;
-      encounter.then(locale.onFightEnemy, locale.onAvoidEnemy);
-      result = encounter.then(function () {
+      encounter.then(function (x) {
+        locale.onFightEnemy();
         return battle.startFight(enemy, $scope, $q);
-      });
-      result.then(bindScopeData(locale.onFinishFighting, locale)).then(function (steps) {
+      }, locale.onAvoidEnemy).then(function (e) {
+        if (e) {
+          return callOrReturn(locale.onFinishFighting, locale);
+        }
+      }, function (x) {
+        $scope.dieFighting(enemy);
+      }).then(function (steps) {
         if (steps && steps.boss) {
           doBattle(steps.boss);
         }
