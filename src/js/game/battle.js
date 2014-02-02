@@ -22,12 +22,15 @@ define(['game/util'], function (util) {
     return $scope.currentBattle.hitPoints;
   },
   receiveDamage = function ($scope, enemyMax) {
-    var bite = util.randomInt(enemyMax + 2, 0),
+    var assist,
+        bite = util.randomInt(enemyMax + 2, 0),
         block = $scope.player.defence + ($scope.player.armor.strength || 0);
     bite -= (block / 2);
     bite = Math.max(Math.floor(bite), 0);
     $scope.player.hitPoints -= bite;
-    $scope.player.hitPoints = Math.max($scope.player.hitPoints, 1);
+    // Development assist :)
+    assist = window.location.search === '?assist' ? 1 : 0;
+    $scope.player.hitPoints = Math.max($scope.player.hitPoints, assist);
     $scope.currentBattle.desc += ', and you were hit with ' + bite;
     return $scope.player.hitPoints;
   };
@@ -109,7 +112,7 @@ define(['game/util'], function (util) {
           finish = {
             label: 'Continue...',
             act: function (scope) {
-              deferred.resolve();
+              deferred.resolve(enemy);
               scope.currentBattle = {};
             }
           },
@@ -148,7 +151,7 @@ define(['game/util'], function (util) {
         } else {
           youRemaining = receiveDamage($scope, enemy.hitPoints);
           if (youRemaining === 0) {
-            deferred.reject();
+            deferred.reject(enemy);
           } else {
             setupActions();
           }
