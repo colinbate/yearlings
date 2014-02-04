@@ -2,7 +2,9 @@
 <html>
   <head>
     <title>Yearlings</title>
-    <link rel="Stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/ngDialog/css/ngDialog.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/ngDialog/css/ngDialog-theme-default.css"/>
   </head>
   <body ng-controller="YearlingsController">
     <div class="container">
@@ -33,6 +35,9 @@
             <dd>{{player.armor.name || '(none)'}}</dd>
           </dl>
         </div>
+        <div class="load-game">
+          <button ng-click="loadDialog()">Load a saved game</button>
+        </div>
         <div class="location ng-cloak" ng-hide="inBattle()">
           <h2>{{getCurrentLocationTitle()}}</h2>
           <p class="main">{{getCurrentLocationDesc()}}</p>
@@ -50,6 +55,16 @@
         </div>
       </div>
     </div>
+    <script type="text/ng-template" id="saveScreen.html">
+      <div class="save-screen">
+        <h3>{{loadTitle}}</h3>
+        <input type="text" ng-model="$parent.saveName" ng-show="saving" placeholder="Optional label for save...">
+        <div class="saved-game" ng-repeat="game in savedGames" ng-click="clickSlot($index + 1)">
+          <span class="name">{{game.name}}</span>
+          <span class="desc">{{game.desc}}</span>
+        </div>
+      </div>
+    </script>
     <script src="bower_components/requirejs/require.js" data-main="js/main"></script>
   </body>
 </html>

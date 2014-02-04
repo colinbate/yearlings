@@ -1,7 +1,7 @@
 define(['game/data', 'game/battle'], function (data, battle) {
   'use strict';
 
-  var yearlingsController = function ($scope, $q) {
+  var yearlingsController = function ($scope, $q, storage, ngDialog) {
     var callOrReturn = function (prop, self) {
       if (typeof prop === 'function') {
         return prop.call(self, $scope, data, $q);
@@ -9,6 +9,7 @@ define(['game/data', 'game/battle'], function (data, battle) {
       return prop;
     };
 
+    $scope.savedGames = storage.get('saveindex') || [{name:'(Empty)'},{name:'(Empty)'},{name:'(Empty)'},{name:'(Empty)'},{name:'(Empty)'}];
     $scope.currentLocation = {};
     $scope.currentBattle = {};
     $scope.previousLocation = [];
@@ -66,6 +67,48 @@ define(['game/data', 'game/battle'], function (data, battle) {
       $scope.player.weapon = {};
       $scope.player.armor = {};
       $scope.player.state = {};
+    };
+
+    $scope.loadDialog = function (save) {
+      if (save) {
+        $scope.saving = true;
+        $scope.loadTitle = 'Choose a slot to save in';
+        $scope.saveName = '';
+      } else {
+        $scope.saving = false;
+        $scope.loadTitle = 'Choose a saved game to load';
+      }
+      ngDialog.open({
+        template: 'saveScreen.html',
+        className: 'ngdialog-theme-default',
+        scope: $scope
+      });
+    };
+
+    $scope.clickSlot = function (slot) {
+      if ($scope.saving) {
+        $scope.saveGame(slot, $scope.saveName);
+      } else {
+        $scope.loadGame(slot);
+      }
+      ngDialog.closeAll();
+    };
+
+    $scope.loadGame = function (slot) {
+      var game = storage.get('savegame' + slot);
+      if (game && game.maxHitPoints) {
+        $scope.player = game;
+      }
+    };
+
+    $scope.saveGame = function (slot, name) {
+      name = name || 'Game ' + slot;
+      $scope.savedGames[slot - 1] = {
+        name: name,
+        desc: 'Level ' + $scope.player.level + '; Health ' + $scope.player.hitPoints + ' / ' + $scope.player.maxHitPoints
+      };
+      storage.set('savegame' + slot, $scope.player);
+      storage.set('saveindex', $scope.savedGames);
     };
 
     $scope.navigateTo = function (location) {
@@ -161,7 +204,7 @@ define(['game/data', 'game/battle'], function (data, battle) {
 
   };
   yearlingsController.ctrlName = 'YearlingsController';
-  yearlingsController.$inject = ['$scope', '$q'];
+  yearlingsController.$inject = ['$scope', '$q', 'storage', 'ngDialog'];
 
   return yearlingsController;
 });

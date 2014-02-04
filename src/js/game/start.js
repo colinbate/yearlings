@@ -1,4 +1,4 @@
-define(['angular', 'game/yearlings-ctrl'], function (angular, yearlingsCtrl) {
+define(['angular', 'game/yearlings-ctrl', 'ngdialog', 'ngstorage'], function (angular, yearlingsCtrl) {
   'use strict';
   var appName = 'yearlings',
       log = function () {
@@ -12,7 +12,7 @@ define(['angular', 'game/yearlings-ctrl'], function (angular, yearlingsCtrl) {
     play: function () {
       var app;
       log('Let\'s play Yearlings!');
-      app = angular.module(appName, []);
+      app = angular.module(appName, ['ngDialog', 'angularLocalStorage']);
       app.controller(yearlingsCtrl.ctrlName, yearlingsCtrl);
       angular.bootstrap(document, [appName]);
     }
