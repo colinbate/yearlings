@@ -149,7 +149,7 @@ define(['game/data', 'game/battle'], function (data, battle) {
           encounter = battle.encounter(enemy, $scope, $q),
           result;
       encounter.then(function (x) {
-        locale.onFightEnemy();
+        callOrReturn(locale.onFightEnemy, locale);
         return battle.startFight(enemy, $scope, $q);
       }, locale.onAvoidEnemy).then(function (e) {
         if (e) {

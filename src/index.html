@@ -59,7 +59,7 @@
       <div class="save-screen">
         <h3>{{loadTitle}}</h3>
         <input type="text" ng-model="$parent.saveName" ng-show="saving" placeholder="Optional label for save...">
-        <div class="saved-game" ng-repeat="game in savedGames" ng-click="clickSlot($index + 1)">
+        <div class="saved-game" ng-repeat="game in savedGames track by $index" ng-click="clickSlot($index + 1)">
           <span class="name">{{game.name}}</span>
           <span class="desc">{{game.desc}}</span>
         </div>
