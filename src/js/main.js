@@ -4,10 +4,16 @@
     require.config({
         paths: {
             'lib'             : '../bower_components',
-            'angular'         : '../bower_components/angular/angular.min'
+            'angular'         : '../bower_components/angular/angular.min',
+            'ngdialog'        : '../bower_components/ngDialog/js/ngDialog.min',
+            'ngstorage'       : '../bower_components/angularLocalStorage/src/angularLocalStorage',
+            'ngcookies'       : '../bower_components/angular-cookies/angular-cookies.min'
         },
         shim: {
-            'angular'         : { exports: 'angular' }
+            'angular'         : { exports: 'angular' },
+            'ngdialog'        : ['angular'],
+            'ngcookies'       : ['angular'],
+            'ngstorage'       : ['angular', 'ngcookies'],
         },
         waitSeconds: 15
     });

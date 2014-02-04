@@ -390,29 +390,38 @@ body {
 .container {
   width: 43em;
   margin: 0 auto;
+  position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000317}}
 .ng-cloak {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000321}}
 .location,
 .battle {
   margin-right: 16em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000324}}
 .location ul,
 .battle ul {
   padding: 0;
   margin: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000328}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000329}}
 .location li,
 .battle li {
   list-style: none;
   margin: 0.25em 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000335}}
+.load-game {
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+  width: 14em;
+  text-align: center;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000343}}
 .stats {
   float: right;
   width: 14em;
@@ -421,13 +430,40 @@ body {
   background-color: #ddd;
   padding: 0 1em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000351}}
 .stats dt {
   float: left;
   font-weight: bold;
   margin-right: 1em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000356}}
 .stats dd {
   text-align: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000362}}
+.save-screen h3 {
+  margin-top: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000365}}
+.save-screen input {
+  width: 100%;
+  padding: 0.3em;
+  margin-bottom: 0.5em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000370}}
+.save-screen .name {
+  font-weight: bold;
+  margin-right: 1em;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000376}}
+.save-screen .saved-game {
+  margin: 0.25em 0;
+  padding: 0.5em;
+  background-color: #ccc;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/rhuvok\/dev\/Projects\/yearlings\/src\/less\/layout\.less}line{font-family:\0000382}}
+.save-screen .saved-game:hover {
+  background-color: #aaa;
 }

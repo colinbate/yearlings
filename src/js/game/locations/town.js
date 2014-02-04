@@ -147,6 +147,8 @@ define(['game/util'], function (util) {
                 $scope.player.items[item.item] += 1; //($scope.player.items[item.item] || 0) + 1;
               } else if (item.id === 'restore') {
                 $scope.player.hitPoints = $scope.player.maxHitPoints;
+              } else if (item.id === 'save') {
+                $scope.loadDialog(true);
               }
             });
           }

@@ -11,6 +11,7 @@ body {
 .container {
 	width: 43em;
 	margin: 0 auto;
+	position: relative;
 }
 
 .ng-cloak {
@@ -31,6 +32,14 @@ body {
 	}
 }
 
+.load-game {
+	position: absolute;
+	top: 0.5em;
+	right: 0;
+	width: 14em;
+	text-align: center;
+}
+
 .stats {
 	float: right;
 	width: 14em;
@@ -46,5 +55,32 @@ body {
 	}
 	dd {
 		text-align: right;
+	}
+}
+
+.save-screen {
+	h3 {
+		margin-top: 0;
+	}
+	input {
+		width: 100%;
+		padding: 0.3em;
+		margin-bottom: 0.5em;
+	}
+	.name {
+		font-weight: bold;
+		//display: inline-block;
+		margin-right: 1em;
+		display: block;
+	}
+	.saved-game {
+		margin: 0.25em 0;
+		padding: 0.5em;
+		background-color: #ccc;
+		cursor: pointer;
+
+		&:hover {
+			background-color: #aaa;
+		}
 	}
 }
