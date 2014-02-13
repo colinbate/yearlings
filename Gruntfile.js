@@ -104,6 +104,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bowercopy');
 
   grunt.registerTask('default', ['jshint', 'less:dev']);
+  grunt.registerTask('install', ['bowercopy', 'less:clean']);
+  grunt.registerTask('play', ['connect']);
 
 
 };
