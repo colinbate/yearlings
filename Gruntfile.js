@@ -67,10 +67,17 @@ module.exports = function(grunt) {
       }
     },
     connect: {
-      server: {
+      src: {
         options: {
           port: 8059,
           base: 'src',
+          keepalive: true
+        }
+      },
+      dist: {
+        options: {
+          port: 8059,
+          base: 'dist',
           keepalive: true
         }
       }
@@ -91,21 +98,71 @@ module.exports = function(grunt) {
           'angular-cookies.js': 'angular-cookies/angular-cookies.js'
         }
       }
+    },
+    requirejs: {
+      compile: {
+        options: {
+          appDir: 'src/',
+          baseUrl: 'js',
+          removeCombined: true,
+          optimizeCss: 'none',
+          mainConfigFile: 'src/js/main.js',
+          dir: 'build',
+          uglify: {
+            max_line_length: 200
+          },
+          modules: [
+            // {
+            //   name: 'angular',
+            //   include: ['ngstorage', 'ngdialog']
+            // },
+            {
+              name: 'main',
+              //exclude: ['angular']
+            }
+          ]
+        }
+      }
+    },
+    copy: {
+      html: {
+        src: 'src/index.html',
+        dest: 'dist/index.html'
+      },
+      css: {
+        src: 'src/css/core.css',
+        dest: 'dist/css/core.css'
+      },
+      img: {
+        src: 'src/img/load.gif',
+        dest: 'dist/img/load.gif'
+      },
+      js: {
+        src: 'build/js/main.js',
+        dest: 'dist/js/main.js'
+      },
+      libs: {
+        expand: true,
+        cwd: 'build/libs/',
+        src: '*.js',
+        dest: 'dist/libs/'
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-less');
-  //grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
   //grunt.loadNpmTasks('grunt-contrib-clean');
-  //grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-bowercopy');
 
   grunt.registerTask('default', ['jshint', 'less:dev']);
   grunt.registerTask('install', ['bowercopy', 'less:clean']);
-  grunt.registerTask('play', ['connect']);
+  grunt.registerTask('play', ['connect:src']);
+  grunt.registerTask('pack', ['less:clean', 'requirejs', 'copy']);
 
 
 };

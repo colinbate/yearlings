@@ -64,7 +64,7 @@ define(['game/util'], function (util) {
           var msg = '';
           if ($scope.player.items.pendant) {
             msg = 'Thank you so much for finding my pendant, to repay you I will tell you about the Dragon\'s Bane. It is a mystical sword that is guarded by a wizard name Morlin in a cave not far from here. Explore the rocky area to find it.';
-          } else if ($scope.player.weapon.name === 'Dragon\'s Bane') {
+          } else if ($scope.player.weapon.last) {
             msg = 'Now that you have the Dragon\'s Bane you are unstoppable! GO - KILL KAMUL!!';
           } else if ($scope.player.state.returnedPendant) {
             msg = 'Go! Find the sword and defeat the evil spirit Kamul!';
