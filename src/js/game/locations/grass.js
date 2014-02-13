@@ -78,7 +78,7 @@ define(['game/util'], function (util) {
     actions: [
       {
         label: 'Explore field',
-        act: function ($scope, data) {
+        act: function ($scope) {
           $scope.explore();
         }
       },

@@ -1,3 +1,6 @@
+syntax: glob
 node_modules
 bower_components
 .DS_Store
+src/libs
+src/css

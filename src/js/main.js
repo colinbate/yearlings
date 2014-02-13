@@ -3,11 +3,11 @@
     'use strict';
     require.config({
         paths: {
-            'lib'             : '../bower_components',
-            'angular'         : '../bower_components/angular/angular.min',
-            'ngdialog'        : '../bower_components/ngDialog/js/ngDialog.min',
-            'ngstorage'       : '../bower_components/angularLocalStorage/src/angularLocalStorage',
-            'ngcookies'       : '../bower_components/angular-cookies/angular-cookies.min'
+            'lib'             : '../libs',
+            'angular'         : '../libs/angular',
+            'ngdialog'        : '../libs/ngDialog',
+            'ngstorage'       : '../libs/angularLocalStorage',
+            'ngcookies'       : '../libs/angular-cookies'
         },
         shim: {
             'angular'         : { exports: 'angular' },

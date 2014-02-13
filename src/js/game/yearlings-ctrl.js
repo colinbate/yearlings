@@ -146,17 +146,16 @@ define(['game/data', 'game/battle'], function (data, battle) {
 
     $scope.doBattle = function doBattle(enemy) {
       var locale = $scope.currentLocation,
-          encounter = battle.encounter(enemy, $scope, $q),
-          result;
-      encounter.then(function (x) {
+          encounter = battle.encounter(enemy, $scope, $q);
+      encounter.then(function (encEnemy) {
         callOrReturn(locale.onFightEnemy, locale);
-        return battle.startFight(enemy, $scope, $q);
+        return battle.startFight(encEnemy, $scope, $q);
       }, locale.onAvoidEnemy).then(function (e) {
         if (e) {
           return callOrReturn(locale.onFinishFighting, locale);
         }
-      }, function (x) {
-        $scope.dieFighting(enemy);
+      }, function (encEnemy) {
+        $scope.dieFighting(encEnemy);
       }).then(function (steps) {
         if (steps && steps.boss) {
           doBattle(steps.boss);
@@ -166,7 +165,7 @@ define(['game/data', 'game/battle'], function (data, battle) {
 
     $scope.explore = function () {
       var explored = callOrReturn($scope.currentLocation.onExplore, $scope.currentLocation),
-          enemy, encounter, result, locale;
+          enemy;
       if (explored) {
         $scope.inspect(explored);
       } else {
