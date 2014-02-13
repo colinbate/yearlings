@@ -1,4 +1,4 @@
-define(['game/util'], function (util) {
+define([], function () {
   'use strict';
 
   return {
@@ -15,7 +15,7 @@ define(['game/util'], function (util) {
         });
       }
     },
-    onFinishFighting: function ($scope, d, $q) {
+    onFinishFighting: function ($scope) {
       $scope.inspect({
           title: 'YOU WIN!',
           desc: 'You strike the fatal blow to Kamul. He drops to the ground hissing and gurgling. You are the hero of the town! CONGRATULATIONS!!!!!!! You have beaten Yearlings!',

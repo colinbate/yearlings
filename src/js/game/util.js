@@ -16,7 +16,7 @@ define([], function () {
       var index;
       if (!arr || arr.length === 0) {
         return;
-      };
+      }
       index = this.randomInt(arr.length - 1, 0);
       return arr[index];
     },
@@ -26,7 +26,7 @@ define([], function () {
         act : function (scope) {
           scope.finishInspecting();
         }
-      }
+      };
     },
     move: function (where, label) {
       return {
@@ -36,7 +36,7 @@ define([], function () {
         act: function (scope, data) {
           scope.navigateTo(walkObj(where, data));
         }
-      }
+      };
     },
     visit: function (where, label) {
       return {
@@ -46,7 +46,7 @@ define([], function () {
         act: function (scope, data) {
           scope.inspect(walkObj(where, data));
         }
-      }
+      };
     }
   };
 });

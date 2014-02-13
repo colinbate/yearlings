@@ -8,12 +8,6 @@ define(['game/util'], function (util) {
     onArrive: function () {
       fightStreak = 0;
     },
-    onLeave: function () {
-
-    },
-    onExplore: function ($scope, data) {
-
-    },
     onEncounterEnemy: function ($scope, data) {
       var enemy = util.randomFromArray(data.enemy.rocky);
       return enemy;
@@ -68,7 +62,7 @@ define(['game/util'], function (util) {
     actions: [
       {
         label: 'Explore rocky area',
-        act: function ($scope, data) {
+        act: function ($scope) {
           $scope.explore();
         }
       },

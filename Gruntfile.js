@@ -74,6 +74,23 @@ module.exports = function(grunt) {
           keepalive: true
         }
       }
+    },
+    bowercopy: {
+      libs: {
+        options: {
+          destPrefix: 'src/libs'
+        },
+        files: {
+          'require.js':  'requirejs/require.js',
+          'angular.js':  'angular/angular.js',
+          'normalize.css':  'normalize-css/normalize.css',
+          'ngDialog.js': 'ngDialog/js/ngDialog.js',
+          'ngDialog.css': 'ngDialog/css/ngDialog.css',
+          'ngDialog-theme-default.css': 'ngDialog/css/ngDialog-theme-default.css',
+          'angularLocalStorage.js': 'angularLocalStorage/src/angularLocalStorage.js',
+          'angular-cookies.js': 'angular-cookies/angular-cookies.js'
+        }
+      }
     }
   });
 
@@ -84,7 +101,7 @@ module.exports = function(grunt) {
   //grunt.loadNpmTasks('grunt-contrib-clean');
   //grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  //grunt.loadNpmTasks('grunt-rsync');
+  grunt.loadNpmTasks('grunt-bowercopy');
 
   grunt.registerTask('default', ['jshint', 'less:dev']);
 
