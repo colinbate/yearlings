@@ -12,4 +12,4 @@ To install from the repository you'll need `node.js`, `npm` and `grunt` installe
 
 You should be able to play it at `http://localhost:8059`. If you want to play through without worrying about dying, then add an `?assist` to the end of the URL.
 
-You can also play the game at http://colinbate.bitbucket.org/yearlings/
+You can also play the game at https://colinbate.bitbucket.io/yearlings/
