@@ -4,11 +4,14 @@
   "description": "A port of a tiny text-based RPG I wrote in high school.",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bower": "bower install",
+    "postinstall": "npm run bower && grunt install",
+    "start": "grunt play",
+    "build": "grunt pack"
   },
   "repository": {
-    "type": "mercurial",
-    "url": "https://bitbucket.org/colinbate/yearlings"
+    "type": "git",
+    "url": "https://github.com/colinbate/yearlings"
   },
   "keywords": [
     "rpg",
@@ -18,13 +21,15 @@
   "author": "Colin Bate <colin@colinbate.com>",
   "license": "MIT",
   "dependencies": {
+    "bower": "^1.8.8",
     "grunt": "~0.4.2",
-    "grunt-contrib-less": "~0.9.0",
-    "grunt-contrib-connect": "~0.6.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-watch": "~0.5.3",
     "grunt-bowercopy": "~0.7.1",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-connect": "~0.6.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-less": "~0.9.0",
     "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt-contrib-watch": "~0.5.3"
   }
 }

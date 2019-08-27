@@ -85,7 +85,8 @@ module.exports = function(grunt) {
     bowercopy: {
       libs: {
         options: {
-          destPrefix: 'src/libs'
+          destPrefix: 'src/libs',
+          runBower: false
         },
         files: {
           'require.js':  'requirejs/require.js',
