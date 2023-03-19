@@ -10,14 +10,15 @@ define([], function () {
 
   return {
     randomInt: function (max, min) {
-      return parseInt(Math.floor(Math.random() * (max - min + 1) + min), 10);
+      min = min || 0;
+      return Math.floor(Math.random() * (max - min) + min);
     },
     randomFromArray: function (arr) {
       var index;
       if (!arr || arr.length === 0) {
         return;
       }
-      index = this.randomInt(arr.length - 1, 0);
+      index = this.randomInt(arr.length, 0);
       return arr[index];
     },
     leave: function (label) {

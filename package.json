@@ -1,6 +1,6 @@
 {
   "name": "yearlings",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A port of a tiny text-based RPG I wrote in high school.",
   "main": "Gruntfile.js",
   "scripts": {

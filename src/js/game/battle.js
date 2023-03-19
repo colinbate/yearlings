@@ -79,18 +79,34 @@ define(['game/util'], function (util) {
             }
           },
           bomb = {
+            id: 'bomb',
             label: 'Use bomb',
             act: function (scope) {
               evalAttack(20);
-              scope.player.items.bomb -= 1;
+              scope.player.items.bombs = Math.max(0, scope.player.items.bombs - 1);
+              if (scope.player.items.bombs === 0) {
+                for (var actionInd = 0; actionInd < scope.currentBattle.actions.length; actionInd += 1) {
+                  if (scope.currentBattle.actions[actionInd].id === 'bomb') {
+                    scope.currentBattle.actions.splice(actionInd, 1);
+                  }
+                }
+              }
             }
           },
           cure = {
+            id: 'cure',
             label: 'Use cure potion',
             act: function (scope) {
               scope.player.hitPoints += 10;
               scope.player.hitPoints = Math.min(scope.player.hitPoints, scope.player.maxHitPoints);
-              scope.player.items.cure -= 1;
+              scope.player.items.cure = Math.max(0, scope.player.items.cure - 1);
+              if (scope.player.items.cure === 0) {
+                for (var actionInd = 0; actionInd < scope.currentBattle.actions.length; actionInd += 1) {
+                  if (scope.currentBattle.actions[actionInd].id === 'cure') {
+                    scope.currentBattle.actions.splice(actionInd, 1);
+                  }
+                }
+              }
               scope.currentBattle.desc = 'You drink a cure potion, your health is now ' + scope.player.hitPoints;
             }
           },
@@ -121,7 +137,7 @@ define(['game/util'], function (util) {
             if ($scope.player.items.bombs && !enemy.noBombs) {
               $scope.currentBattle.actions.push(bomb);
             }
-            if ($scope.player.items.cure) {
+            if ($scope.player.items.cure > 0) {
               $scope.currentBattle.actions.push(cure);
             }
             $scope.currentBattle.actions.push(run);

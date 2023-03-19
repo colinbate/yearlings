@@ -102,7 +102,7 @@ define(['game/data', 'game/battle'], function (data, battle) {
     };
 
     $scope.saveGame = function (slot, name) {
-      name = name || 'Game ' + slot;
+      name = name || ($scope.savedGames[slot - 1].desc && $scope.savedGames[slot - 1].name) || 'Game ' + slot;
       $scope.savedGames[slot - 1] = {
         name: name,
         desc: 'Level ' + $scope.player.level + '; Health ' + $scope.player.hitPoints + ' / ' + $scope.player.maxHitPoints

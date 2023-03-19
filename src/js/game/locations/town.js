@@ -1,11 +1,9 @@
 define(['game/util'], function (util) {
   'use strict';
   var tellerMessages = [
-    'The evil spirit Kamul haunts the Doomed Woods.',
-    'Enemies in the grassland are easier than those in the rocky land.',
-    'If I were you, I\'d  get to level 13 before even going into the forest.',
-    'The Item Shop teller has more than he sells.',
-    'I can\'t find my magical pendant, I think I lost it some where in the field.'
+    'Enemies in the grassy field are easier than those in the rocky land.',
+    'I can\'t find my magical pendant, I think I lost it somewhere in the field.',
+    'The evil dragon Kamul lurks in the Doomed Woods.'
   ],
   confirmDowngrade = function (done, scope, desc) {
     return {
@@ -65,11 +63,19 @@ define(['game/util'], function (util) {
           if ($scope.player.items.pendant) {
             msg = 'Thank you so much for finding my pendant, to repay you I will tell you about the Dragon\'s Bane. It is a mystical sword that is guarded by a wizard name Morlin in a cave not far from here. Explore the rocky area to find it.';
           } else if ($scope.player.weapon.last) {
-            msg = 'Now that you have the Dragon\'s Bane you are unstoppable! GO - KILL KAMUL!!';
+            if ($scope.player.level < 13) {
+              msg = 'Excellent you found the legendary sword! If I were you, I\'d get to level 13 before even thinking about going into the Doomed Woods.';
+            } else {
+              msg = 'Now that you have the Dragon\'s Bane and are strong enough, you are unstoppable! GO - KILL KAMUL!!';
+            }
           } else if ($scope.player.state.returnedPendant) {
-            msg = 'Go! Find the sword and defeat the evil spirit Kamul!';
+            if (!$scope.player.items.rope) {
+              msg = 'The general store stocks more than they sell.';
+            } else {
+              msg = 'Go! Find the sword and defeat the evil dragon Kamul!';
+            }
           } else {
-            msg = tellerMessages[Math.min($scope.player.level - 1, 4)];
+            msg = util.randomFromArray(tellerMessages);
           }
           return '"' + msg + '"';
         },
@@ -126,7 +132,7 @@ define(['game/util'], function (util) {
             }, function (item) {
               var prefix = 'You bought a ' + item.name + ' ';
               if ($scope.player.armor.price) {
-                prefix = 'and you sold your ' + $scope.player.armor.name + ' for ' + Math.floor($scope.player.armor.price / 2) + '. ';
+                prefix += 'and you sold your ' + $scope.player.armor.name + ' for ' + Math.floor($scope.player.armor.price / 2) + '. ';
                 $scope.credit(Math.floor($scope.player.armor.price / 2));
               }
               $scope.player.armor = item;

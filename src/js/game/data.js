@@ -19,7 +19,7 @@ define(['game/locations/index'], function (locations) {
         { name: 'druid',       hitPoints: 41, money:  88, experience:  60 },
         { name: 'demon',       hitPoints: 52, money: 105, experience:  75 },
         { name: 'dactyl',      hitPoints: 67, money: 130, experience: 100 },
-        { name: 'dragon',      hitPoints: 87, money: 170, experience: 125 },
+        { name: 'cyclops',     hitPoints: 87, money: 170, experience: 125 },
         { name: 'T-Rex',       hitPoints: 75, money: 150, experience: 115 },
         { name: 'ogre',        hitPoints: 71, money: 142, experience: 105 },
         { name: 'troll',       hitPoints: 60, money: 125, experience:  85 },
