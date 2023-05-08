@@ -130,6 +130,10 @@ module.exports = function(grunt) {
         src: 'src/index.html',
         dest: 'dist/index.html'
       },
+      icon: {
+        src: 'src/favicon.png',
+        dest: 'dist/favicon.png'
+      },
       css: {
         src: 'src/css/core.css',
         dest: 'dist/css/core.css'
