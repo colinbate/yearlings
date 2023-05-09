@@ -85,6 +85,24 @@
         </div>
       </div>
     </script>
+    <script>
+      var THEME_KEY = 'dark-mode';
+      var theme = (() => {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem(THEME_KEY)) {
+              return localStorage.getItem(THEME_KEY);
+          }
+          if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              return 'light';
+          }
+          return 'dark';
+      })();
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      window.toggleDark = function() {
+          let next = !document.documentElement.classList.contains('dark');
+          document.documentElement.classList.toggle('dark', next);
+          window.localStorage.setItem(THEME_KEY, next ? 'dark' : 'light');
+      }
+    </script>
     <script src="libs/require.js" data-main="js/main"></script>
     <script src="https://progress-bright.bate.dev/script.js" data-excluded-domains="localhost" data-site="BAFBATVG" defer></script>
   </body>
